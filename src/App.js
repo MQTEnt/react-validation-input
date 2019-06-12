@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-
+import { TextInput, CustomizeForm } from './CustomInputs';
+import {required, email} from './Validation';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -13,19 +13,13 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 200,
-  },
-  dense: {
-    marginTop: 19,
-  },
-  menu: {
-    width: 200,
-  },
+  }
 }));
 
 function App() {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    name: 'Nguyen Van A',
+    email: 'nguyenvana',
     address: 'Hanoi'
   });
   const handleChange = name => event => {
@@ -34,25 +28,23 @@ function App() {
 
   return (
     <div className="App">
-      <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="standard-name"
-          label="Name"
-          className={classes.textField}
-          value={values.name}
-          onChange={handleChange('name')}
-          margin="normal"
+      <CustomizeForm className={classes.container} autoComplete="off">
+        <TextInput
+          label="Email"
+          value={values.email}
+          onChange={handleChange('email')}
+          name='email'
+          validations={[required, email]}
         />
 
-        <TextField
-          id="standard-address"
+        <TextInput
           label="Address"
-          className={classes.textField}
           value={values.address}
           onChange={handleChange('address')}
-          margin="normal"
+          name='address'
+          validations={[required]}
         />
-      </form>
+      </CustomizeForm>
     </div>
   );
 }
